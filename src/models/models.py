@@ -151,6 +151,34 @@ if use_local_proxy:
     )
     REGISTED_MODELS[model_name] = model
 
+    # deepseek-chat
+    model_name = "deepseek-chat"
+    model_id = "deepseek/deepseek-chat"
+    client = OpenAI(
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
+        base_url=os.getenv("DEEPSEEK_API_BASE"),
+    )
+    model = LiteLLMModel(
+        model_id=model_id,
+        http_client=client,
+        custom_role_conversions=custom_role_conversions,
+    )
+    REGISTED_MODELS[model_name] = model
+    
+    # deepseek-reasoner
+    model_name = "deepseek-reasoner"
+    model_id = "deepseek/deepseek-reasoner"
+    client = OpenAI(
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
+        base_url=os.getenv("DEEPSEEK_API_BASE"),
+    )
+    model = LiteLLMModel(
+        model_id=model_id,
+        http_client=client,
+        custom_role_conversions=custom_role_conversions,
+    )
+    REGISTED_MODELS[model_name] = model
+
     logger.info("Local models registered, support models: %s", ", ".join(REGISTED_MODELS.keys()))
 else:
     logger.info("Not using local proxy")
@@ -188,6 +216,34 @@ else:
     client = OpenAI(
         api_key=os.getenv("OPENAI_API_KEY"),
         base_url=os.getenv("OPENAI_BASE_URL"),
+    )
+    model = LiteLLMModel(
+        model_id=model_id,
+        http_client=client,
+        custom_role_conversions=custom_role_conversions,
+    )
+    REGISTED_MODELS[model_name] = model
+    
+    # deepseek-chat
+    model_name = "deepseek-chat"
+    model_id = "deepseek/deepseek-chat"
+    client = OpenAI(
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
+        base_url=os.getenv("DEEPSEEK_API_BASE"),
+    )
+    model = LiteLLMModel(
+        model_id=model_id,
+        http_client=client,
+        custom_role_conversions=custom_role_conversions,
+    )
+    REGISTED_MODELS[model_name] = model
+    
+    # deepseek-reasoner
+    model_name = "deepseek-reasoner"
+    model_id = "deepseek/deepseek-reasoner"
+    client = OpenAI(
+        api_key=os.getenv("DEEPSEEK_API_KEY"),
+        base_url=os.getenv("DEEPSEEK_API_BASE"),
     )
     model = LiteLLMModel(
         model_id=model_id,
