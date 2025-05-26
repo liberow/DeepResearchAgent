@@ -17,7 +17,8 @@ from src.exception import (
 )
 from src.base.async_multistep_agent import (PromptTemplates,
                                             populate_template,
-                                            AsyncMultiStepAgent)
+                                            AsyncMultiStepAgent
+                                            )
 from src.memory import (ActionStep,
                         ToolCall,
                         AgentMemory)
@@ -145,7 +146,7 @@ class PlanningAgent(AsyncMultiStepAgent):
             if isinstance(arguments, dict):
                 return await tool(**arguments) if is_managed_agent else await tool(**arguments, sanitize_inputs_outputs=True)
             elif isinstance(arguments, str):
-                return awaittool(arguments) if is_managed_agent else await tool(arguments, sanitize_inputs_outputs=True)
+                return await tool(arguments) if is_managed_agent else await tool(arguments, sanitize_inputs_outputs=True)
             else:
                 raise TypeError(f"Unsupported arguments type: {type(arguments)}")
 
