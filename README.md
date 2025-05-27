@@ -28,6 +28,19 @@ The system adopts a two-layer structure:
 - Hierarchical agent collaboration for complex and dynamic task scenarios
 - Extensible agent system, allowing easy integration of additional specialized agents
 - Automated information analysis, research, and web interaction capabilities
+  
+
+## Updates
+- 2025.05.27
+  - Updated the available remote API calls to support OpenAI, Anthropic, and Google LLMs.
+  - Added support for local Qwen models (via vllm, compatible with OpenAI API format, see details at the end of README)
+
+## TODO List
+- [x] Asynchronous feature completed
+- [ ] Image Generation Agent to be developed
+- [ ] MCP in progress
+- [ ] AI4Research Agent to be developed
+- [ ] Novel Writing Agent to be developed
 
 ## Installation
 
@@ -55,21 +68,25 @@ playwright install chromium --with-deps --no-shell
 PYTHONWARNINGS=ignore # ignore warnings
 ANONYMIZED_TELEMETRY=false # disable telemetry
 HUGGINEFACE_API_KEY=abcabcabc # your huggingface api key
-OPENAI_BASE_URL=https://api.openai.com/v1
+OPENAI_API_BASE=https://api.openai.com/v1
 OPENAI_API_KEY=abcabcabc # your openai api key
-
-# (Optional) Local proxy. If you are using a private proxy, please refer to the configuration guide as follows:
-LOCAL_PROXY_BASE=http://localhost:6655
-SKYWORK_API_BASE=abcabcabs
-SKYWORK_OPENROUTER_BJ_API_BASE=abcabcabs
-SKYWORK_OPENROUTER_US_API_BASE=abcabcabs
-SKYWORK_AZURE_HK_API_BASE=abcabcabs
-SKYWORK_WHISPER_BJ_API_BASE=abcabcabs
-SKYWORK_GOOGLE_API_BASE=abcabcabs
-SKYWORK_API_KEY=abcabcabs
-SKYWORK_GOOGLE_SEARCH_API=abcabcabs
+ANTHROPIC_API_BASE=https://api.anthropic.com
+ANTHROPIC_API_KEY=abcabcabc # your anthropic api key
+GOOGLE_APPLICATION_CREDENTIALS=/your/user/path/.config/gcloud/application_default_credentials.json
+GOOGLE_API_BASE=https://generativelanguage.googleapis.com
+GOOGLE_API_KEY=abcabcabc # your google api key
 ```
 
+```
+Note: Maybe you have some problems using google api, here is the reference
+1. Get api key from https://aistudio.google.com/app/apikey
+
+2. Get `application_default_credentials.json`. Here is the reference: https://cloud.google.com/docs/authentication/application-default-credentials?hl=zh-cn
+# Creating a Google API key requires it to be linked to a project, but the project may also need Vertex AI authorization, so it is necessary to obtain the appropriate credentials.
+brew install --cask google-cloud-sdk
+gcloud init
+gcloud auth application-default login
+```
 
 ## Usage
 
@@ -122,4 +139,23 @@ Contributions and suggestions are welcome! Feel free to open issues or submit pu
   howpublished = {\url{https://github.com/SkyworkAI/DeepResearchAgent}},
   year =         {2025}
 }
+```
+
+## Questions
+
+### 1. About Qwen models
+Our project is based on the vllm startup qwen model, so that you can call the local model just by providing api_base, just like the model of openai. 
+Details about start qwen model through vllm: https://docs.vllm.ai/en/latest/getting_started/quickstart.html#openai-completions-api-with-vllm
+```
+
+# start your service
+pip install vllm
+vllm serve Qwen/Qwen2.5-1.5B-Instruct
+
+# put api_base to .env
+QWEN_API_BASE=http://localhost:8000/v1
+QWEN_API_KEY="no need, abcabcabc will be ok"
+
+# Configure your config file to use qwen's model
+model_id = "qwen"
 ```
