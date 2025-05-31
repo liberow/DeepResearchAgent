@@ -24,7 +24,15 @@ from src.memory import (ActionStep,
 from src.logger import (LogLevel, 
                         YELLOW_HEX, 
                         logger)
+<<<<<<< Updated upstream
 from src.models import Model, parse_json_if_needed, ChatMessage
+=======
+from src.models import (
+    Model,
+    ChatMessage, 
+    parse_json_if_needed,
+)
+>>>>>>> Stashed changes
 from src.utils.agent_types import (
     AgentAudio,
     AgentImage,

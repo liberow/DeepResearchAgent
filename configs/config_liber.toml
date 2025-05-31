@@ -28,7 +28,7 @@ time_limit_seconds = 60
 max_follow_ups = 3
 
 [browser_tool]
-headless = false
+headless = true
 disable_security = true
 extra_chromium_args = []
 chrome_instance_path = ""

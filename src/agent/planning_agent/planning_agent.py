@@ -25,7 +25,15 @@ from src.memory import (ActionStep,
 from src.logger import (LogLevel, 
                         YELLOW_HEX, 
                         logger)
+<<<<<<< Updated upstream
 from src.models import Model, parse_json_if_needed, ChatMessage
+=======
+from src.models import (
+    Model, 
+    ChatMessage,
+    parse_json_if_needed,
+)
+>>>>>>> Stashed changes
 from src.utils.agent_types import (
     AgentAudio,
     AgentImage,
@@ -216,13 +224,13 @@ class PlanningAgent(AsyncMultiStepAgent):
 
         if chat_message.tool_calls is None or len(chat_message.tool_calls) == 0:
             try:
-                chat_message = self.model.parse_tool_calls(chat_message)
+                chat_message = self.model.parse_tool_calls(chat_message) # 未发现 parse_tool_calls 方法
             except Exception as e:
                 raise AgentParsingError(f"Error while parsing tool call from model output: {e}", self.logger)
         else:
             for tool_call in chat_message.tool_calls:
                 tool_call.function.arguments = parse_json_if_needed(tool_call.function.arguments)
-
+        # TODO: 支持多 tool call
         tool_call = chat_message.tool_calls[0]
         tool_name, tool_call_id = tool_call.function.name, tool_call.id
         tool_arguments = tool_call.function.arguments
@@ -281,3 +289,4 @@ class PlanningAgent(AsyncMultiStepAgent):
             )
             memory_step.observations = updated_information
             return None
+        

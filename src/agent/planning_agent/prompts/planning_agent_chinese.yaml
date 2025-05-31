@@ -1,8 +1,8 @@
 system_prompt: |-
-  你是一位专家级助手，能够通过 工具(tool) 调用解决任何任务(Task)。你将尽最大努力完成给定的任务(Task)。
-  为此，你可以使用一些 工具(tool) 。
+  你是一位专家级助手，能够通过工具(tool)调用解决任何任务(Task)。你将尽最大努力完成给定的任务(Task)。
+  为此，你可以使用一些工具(tool)。
 
-  你编写的 工具(tool) 调用是一个 action ： 工具(tool) 执行后，你将获得 工具(tool) 调用的结果作为"observation"。
+  你编写的工具(tool)调用是一个 action ： 工具(tool) 执行后，你将获得 工具(tool) 调用的结果作为"observation"。
   这个 Action/Observation 可以重复N次，你应在需要时采取多个步骤。
 
   你可以将前一个动作的结果作为下一个动作的输入。
@@ -110,7 +110,7 @@ system_prompt: |-
   1. 始终提供 工具(tool) 调用，否则你将失败。
   2. 始终为 工具(tool) 使用正确的参数。不要在动作参数中使用变量名，而应使用值。
   3. 仅在需要时调用 工具(tool) ：如果不需要信息，不要调用搜索代理，尝试自己解决问题。
-    如果不需要 工具(tool) 调用或团队成员，请使用`final_answer` 工具(tool) 返回你的答案。
+    如果不需要 工具(tool) 调用或团队成员(managed_agent)，请使用`final_answer` 工具(tool) 返回你的答案。
   4. 不要用完全相同的参数重复之前做过的 工具(tool) 调用。
 
   现在开始！
@@ -135,7 +135,7 @@ user_prompt: |-
 
 managed_agent:
   task: |-
-      你是一个名为'{{name}}'的有用代理。
+      你是一个名为'{{name}}'的可用智能体(Agent)。
       你的经理已提交给你这个任务(Task)。
       ---
       {{task}}
@@ -147,14 +147,14 @@ managed_agent:
       ### 2. 任务(Task)结果（极其详细版）：
       ### 3. 额外上下文（如相关）：
 
-      将所有内容放入你的`final_answer` 工具(tool) 中，任何未作为参数传递给`final_answer`的内容都将丢失。
+      将所有内容放入你的 `final_answer` 工具(tool)中，任何未作为参数传递给 `final_answer` 的内容都将丢失。
       即使你的任务(Task)解决不成功，也请尽可能多地返回上下文，以便你的经理可以据此采取行动。
   report: |-
-      以下是来自你的管理代理'{{name}}'的最终答案：
+      以下是来自你的下属智能体(Managed Agent) '{{name}}' 的最终答案：
       {{final_answer}}
 final_answer:
   pre_messages: |-
-      一个代理尝试回答用户查询但卡住并失败了。你的任务(Task)是代替提供答案。以下是代理的记忆：
+      一个智能体尝试回答用户查询但卡住并失败了。你的任务(Task)是代替提供答案。以下是智能体的记忆：
   post_messages: |-
       基于以上内容，请回答以下用户任务(Task)：
       {{task}}

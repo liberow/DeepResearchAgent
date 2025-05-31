@@ -43,6 +43,7 @@ from src.memory import (ActionStep,
                         ToolCall)
 from src.models import (
     ChatMessage,
+    parse_json_if_needed
 )
 from src.logger import (
     LogLevel,
@@ -52,6 +53,7 @@ from src.tools import Tool
 from src.exception import (
     AgentParsingError,
     AgentToolCallError,
+    AgentGenerationError,
     AgentToolExecutionError,
 )
 from src.base.multistep_agent import MultiStepAgent, PromptTemplates, populate_template
