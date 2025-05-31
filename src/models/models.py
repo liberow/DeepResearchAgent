@@ -301,6 +301,10 @@ class ModelManager(metaclass=Singleton):
                 "model_name": "qwen2.5-32b-instruct",
                 "model_id": "Qwen/Qwen2.5-32B-Instruct",
             },
+            {
+                "model_name": "qwen-plus",
+                "model_id": "qwen-plus",
+            }
         ]
         for model in models:
             model_name = model["model_name"]
@@ -332,14 +336,11 @@ class ModelManager(metaclass=Singleton):
             model_name = model["model_name"]
             model_id = model["model_id"]
             
-            client = OpenAI(
-                api_key=api_key,
-                base_url=api_base,
-            )
-            
-            model = OpenAIServerModel(
+            model = LiteLLMModel(
                 model_id=model_id,
-                http_client=client,
+                api_key=api_key,
+                api_base=api_base,
                 custom_role_conversions=custom_role_conversions,
             )
             self.registed_models[model_name] = model
+ 

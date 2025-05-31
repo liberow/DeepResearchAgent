@@ -13,6 +13,7 @@ from src.logger import logger
 from src.config import config
 from src.models import model_manager
 from src.agent import create_agent
+from src.utils import assemble_project_path
 
 async def main():
     # Init logger
@@ -20,7 +21,6 @@ async def main():
     log_path = config.log_path
     logger.init_logger(log_path)
     logger.info(f"Initializing logger: {log_path}")
-    logger.info(f"Load config:{config}")
     logger.info(f"root path: {root}")
 
     # Registed models
@@ -31,7 +31,7 @@ async def main():
     agent = create_agent()
 
     # Run example
-    task = "广州市人工智能产业链"
+    task = "广东省具身智能产业链分析"
     res = await agent.run(task)
     logger.info(f"Result: {res}")
 

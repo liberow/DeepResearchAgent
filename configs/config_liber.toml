@@ -30,7 +30,7 @@ max_follow_ups = 3
 
 [browser_tool]
 model_id = "deepseek-chat"
-headless = true
+headless = false
 disable_security = true
 extra_chromium_args = []
 chrome_instance_path = ""
