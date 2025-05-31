@@ -1,12 +1,12 @@
 # General Config
 tag = "liber"
-concurrency = 5
+concurrency = 4
 workdir = "workdir"
-log_path = "liber_log.txt"
+log_path = "log.txt"
 download_path = "downloads_folder"
-use_local_proxy = false
-split = "test"
-save_path = "liber.jsonl"
+use_local_proxy = false # true for local proxy, false for public proxy
+split = "validation"
+save_path = "liber_dra.jsonl"
 
 # Tool Config
 [searcher_tool]
@@ -15,7 +15,7 @@ fallback_engines = ["DuckDuckGo", "Baidu", "Bing"]
 retry_delay = 10
 max_retries = 3
 lang = "cn"
-country = "us"
+country = "cn"
 filter_year = 0
 num_results = 5
 fetch_content = false
@@ -41,6 +41,10 @@ server = "xxxx"
 username = "xxxx"
 password = "xxxx"
 
+[deep_analyzer_tool]
+analyzer_model_ids = ["deepseek-chat"]
+summarizer_model_id = "deepseek-chat"
+
 # Agent configs
 [agent]
 name = "liber"
@@ -59,7 +63,7 @@ managed_agents = ["deep_analyzer_agent", "browser_use_agent", "deep_researcher_a
 model_id = "deepseek-chat"
 name = "deep_analyzer_agent"
 description = "Performs systematic, step-by-step analysis..."
-max_steps = 1
+max_steps = 3
 template_path = "src/agent/deep_analyzer_agent/prompts/deep_analyzer_agent_chinese.yaml"
 tools = ["deep_analyzer", "python_interpreter"]
 
@@ -68,7 +72,7 @@ model_id = "deepseek-chat"
 name = "browser_use_agent"
 description = "Searches relevant web pages and interacts with them."
 max_steps = 5
-template_path = "src/agent/browser_use_agent/prompts/browser_use_agent_chinese.yaml"
+template_path = "src/agent/browser_use_agent/prompts/browser_use_agent.yaml"
 tools = ["auto_browser_use", "python_interpreter"]
 
 [agent.deep_researcher_agent_config]
@@ -80,5 +84,5 @@ template_path = "src/agent/deep_researcher_agent/prompts/deep_researcher_agent_c
 tools = ["deep_researcher", "python_interpreter"]
 
 [dataset]
-name = "liber"
+name = "liber_dataset"
 path = "data/liber"

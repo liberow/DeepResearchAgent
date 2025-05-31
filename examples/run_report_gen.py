@@ -11,7 +11,7 @@ sys.path.append(root)
 
 from src.logger import logger
 from src.config import config
-from src.registry import REGISTED_MODELS
+from src.models import model_manager
 from src.agent import create_agent
 
 async def main():
@@ -20,16 +20,18 @@ async def main():
     log_path = config.log_path
     logger.init_logger(log_path)
     logger.info(f"Initializing logger: {log_path}")
+    logger.info(f"Load config:{config}")
     logger.info(f"root path: {root}")
 
     # Registed models
-    logger.info("Registed models: %s", ", ".join(REGISTED_MODELS.keys()))
+    model_manager.init_models(use_local_proxy=config.use_local_proxy)
+    logger.info("Registed models: %s", ", ".join(model_manager.registed_models.keys()))
     
     # Create agent
     agent = create_agent()
 
     # Run example
-    task = "Search for the latest research paper on the topic of 'AI Agent' and summarize it."
+    task = "广州市人工智能产业链"
     res = await agent.run(task)
     logger.info(f"Result: {res}")
 
