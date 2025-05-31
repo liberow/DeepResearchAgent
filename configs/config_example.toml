@@ -1,5 +1,5 @@
 # General Config
-tag = "gaia"
+tag = "example"
 concurrency = 4
 workdir = "workdir"
 log_path = "log.txt"
@@ -22,12 +22,14 @@ fetch_content = false
 max_length = 50000
 
 [deep_researcher_tool]
+model_id = "gpt-4.1"
 max_depth = 2
 max_insights = 20
 time_limit_seconds = 60
 max_follow_ups = 3
 
 [browser_tool]
+model_id = "gpt-4.1"
 headless = false
 disable_security = true
 extra_chromium_args = []
@@ -51,7 +53,7 @@ name = "dra"
 use_hierarchical_agent = true
 
 [agent.planning_agent_config]
-model_id = "claude37-sonnet-thinking"
+model_id = "gpt-4.1"
 name = "planning_agent"
 description = "A planning agent that can plan the steps to complete the task."
 max_steps = 20
@@ -60,7 +62,7 @@ tools = ["planning"]
 managed_agents = ["deep_analyzer_agent", "browser_use_agent", "deep_researcher_agent"]
 
 [agent.deep_analyzer_agent_config]
-model_id = "claude37-sonnet-thinking"
+model_id = "gpt-4.1"
 name = "deep_analyzer_agent"
 description = "Performs systematic, step-by-step analysis..."
 max_steps = 3
@@ -76,7 +78,7 @@ template_path = "src/agent/browser_use_agent/prompts/browser_use_agent.yaml"
 tools = ["auto_browser_use", "python_interpreter"]
 
 [agent.deep_researcher_agent_config]
-model_id = "claude37-sonnet-thinking"
+model_id = "gpt-4.1"
 name = "deep_researcher_agent"
 description = "Conducts extensive web searches."
 max_steps = 3
