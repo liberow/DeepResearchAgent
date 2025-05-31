@@ -31,6 +31,8 @@ The system adopts a two-layer structure:
   
 
 ## Updates
+- 2025.05.30
+ - Convert the sub agent to a function call, so that the planning agent can call the sub agents directly. Planning agent can now be gpt-4.1 or gemini-2.5-pro.
 - 2025.05.27
   - Updated the available remote API calls to support OpenAI, Anthropic, and Google LLMs.
   - Added support for local Qwen models (via vllm, compatible with OpenAI API format, see details at the end of README)
@@ -144,18 +146,22 @@ Contributions and suggestions are welcome! Feel free to open issues or submit pu
 ## Questions
 
 ### 1. About Qwen models
-Our project is based on the vllm startup qwen model, so that you can call the local model just by providing api_base, just like the model of openai. 
-Details about start qwen model through vllm: https://docs.vllm.ai/en/latest/getting_started/quickstart.html#openai-completions-api-with-vllm
+Our framework now supports local Qwen models, including qwen2.5-7b-instruct, qwen2.5-14b-instruct, and qwen2.5-32b-instruct.
 ```
-
-# start your service
-pip install vllm
-vllm serve Qwen/Qwen2.5-1.5B-Instruct
-
-# put api_base to .env
-QWEN_API_BASE=http://localhost:8000/v1
-QWEN_API_KEY="no need, abcabcabc will be ok"
-
 # Configure your config file to use qwen's model
-model_id = "qwen"
+model_id = "qwen2.5-7b-instruct"
 ```
+
+### 2. About browser use
+If you are having problems with your browser, please reinstall the browser tool.
+```
+pip install "browser-use[memory]"==0.1.47
+
+# install playwright
+pip install playwright
+playwright install chromium --with-deps --no-shell
+```
+
+### 3. About calling for sub agents
+I’ve found that both OpenAI and Google models are strictly trained for function calling, which means they no longer use JSON outputs to invoke sub-agents. Therefore, I recommend using Claude-3.7-Sonnet as the planning agent whenever possible. 
+This issue has been fixed. The planning agent can now call the sub-agents directly, so you can use gpt-4.1 or gemini-2.5-pro as the planning agent.
