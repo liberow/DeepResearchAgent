@@ -30,6 +30,7 @@ class ModelManager(metaclass=Singleton):
         self._register_qwen_models(use_local_proxy=use_local_proxy)
         self._register_langchain_models(use_local_proxy=use_local_proxy)
         self._register_vllm_models(use_local_proxy=use_local_proxy)
+        self._register_deepseek_models(use_local_proxy=use_local_proxy)
 
     def _check_local_api_key(self, local_api_key_name: str, remote_api_key_name: str) -> str:
         api_key = os.getenv(local_api_key_name, PLACEHOLDER)
@@ -436,3 +437,34 @@ class ModelManager(metaclass=Singleton):
                 custom_role_conversions=custom_role_conversions,
             )
             self.registed_models[model_name] = model
+            
+    def _register_deepseek_models(self, use_local_proxy: bool = False):
+        # deepseek
+        api_key = self._check_local_api_key(local_api_key_name="DEEPSEEK_API_KEY", 
+                                                remote_api_key_name="DEEPSEEK_API_KEY")
+        api_base = self._check_local_api_base(local_api_base_name="DEEPSEEK_API_BASE", 
+                                                    remote_api_base_name="DEEPSEEK_API_BASE")
+        models = [
+            {
+                "model_name": "deepseek-chat",
+                "model_id": "deepseek/deepseek-chat",
+            }, 
+            {
+                "model_name": "deepseek-reasoner",
+                "model_id": "deepseek/deepseek-reasoner",
+            },             
+        ]
+        
+        for model in models:
+            model_name = model["model_name"]
+            model_id = model["model_id"]
+            
+            model = LiteLLMModel(
+                model_id=model_id,
+                api_key=api_key,
+                api_base=api_base,
+                # provider="deepseek",
+                custom_role_conversions=custom_role_conversions,
+            )
+            self.registed_models[model_name] = model
+       
